@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const config = require('config');
 const axios = require('axios');
 const User = require('../models/User');
 const auth = require('../middleware/auth');
@@ -29,7 +28,7 @@ router.post('/signup', async (req, res) => {
 
     jwt.sign(
       payload,
-      config.get('jwtSecret'),
+      process.env.jwtSecret,
       { expiresIn: 360000 },
       (err, token) => {
         if (err) throw err;
